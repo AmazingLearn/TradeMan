@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "W18SM3SGwHfCxfnzZ6HwhIH/VGdt1LNNczC7Xrv0N+81EKXjB9VjUiAWrAA5r+ORdSvtZbHs7fl+F65qGLznDw==",
+  "dgSpecHash": "w9Vc1iTcztmmUlHLYDgDEzm0w6sLwbtXsxHaGbVrXAKDu5JxuTiLf/sZcVDKRQ+0/J5gJjtbZk5Nt3iMZaneZA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\OooooOOoOOo\\Documents\\tm\\TradingMan\\UnitTestsTm\\UnitTestsTm.csproj",
+  "projectFilePath": "C:\\Users\\OooooOOoOOo\\Documents\\tmgithub\\TradingMan\\UnitTestsTm\\UnitTestsTm.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\OooooOOoOOo\\.nuget\\packages\\alpaca.markets\\5.3.2\\alpaca.markets.5.3.2.nupkg.sha512",
     "C:\\Users\\OooooOOoOOo\\.nuget\\packages\\castle.core\\5.0.0\\castle.core.5.0.0.nupkg.sha512",

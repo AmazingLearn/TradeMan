@@ -21,7 +21,7 @@ namespace TradingManBackend.DataLayer.ExternalAPI
             return await client.ListAssetsAsync(new AssetsRequest { AssetStatus = AssetStatus.Active, Exchange = exchange });
         }
 
-        // TODO possible implementation of sell and other market orders.s
+        // TODO possible implementation of sell market order.
         /// <summary>
         /// Submits market order via Alpaca API.
         /// </summary>
@@ -32,13 +32,25 @@ namespace TradingManBackend.DataLayer.ExternalAPI
         public async Task<bool> SubmitTrade(Order order, AccountSettings accountSettings, OrderQuantity quantity)
         {
             var client = GetAlpacaTradingClient(accountSettings.AlpacaApiKey, accountSettings.AlpacaSecretKey, order.UsePaperAccount);
-            var marketOrder = MarketOrder.Buy(order.ProductSymbol, quantity);
+            return await SubmitBuyOrder(order, quantity, client);            
+        }
+
+        /// <summary>
+        /// Submits buy market order.
+        /// </summary>
+        /// <param name="order"></param>
+        /// <param name="quantity"></param>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        private async Task<bool> SubmitBuyOrder(Order order, OrderQuantity quantity, IAlpacaTradingClient client)
+        {
+            var buyOrder = MarketOrder.Buy(order.ProductSymbol, quantity);
 
             IOrder? res = null;
             if (order.StopLoss > 0)
             {
                 var stopLossPrice = (decimal)order.StopLoss;
-                var stopLossOrder = marketOrder.StopLoss(stopLossPrice);
+                var stopLossOrder = buyOrder.StopLoss(stopLossPrice);
 
                 if (order.TakeProfits > 0)
                 {
@@ -54,12 +66,54 @@ namespace TradingManBackend.DataLayer.ExternalAPI
             else if (order.TakeProfits > 0)
             {
                 var takeProfitPrice = (decimal)order.TakeProfits;
-                var takeProfitOrder = marketOrder.TakeProfit(takeProfitPrice);
+                var takeProfitOrder = buyOrder.TakeProfit(takeProfitPrice);
                 res = await client.PostOrderAsync(takeProfitOrder);
             }
             else
             {
-                res = await client.PostOrderAsync(marketOrder);
+                res = await client.PostOrderAsync(buyOrder);
+            }
+
+            return res != null;
+        }
+
+        /// <summary>
+        /// Submits sell market order.
+        /// </summary>
+        /// <param name="order"></param>
+        /// <param name="quantity"></param>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        private async Task<bool> SubmitSellOrder(Order order, OrderQuantity quantity, IAlpacaTradingClient client)
+        {
+            var sellOrder = MarketOrder.Sell(order.ProductSymbol, quantity);
+
+            IOrder? res = null;
+            if (order.StopLoss > 0)
+            {
+                var stopLossPrice = (decimal)order.StopLoss;
+                var stopLossOrder = sellOrder.StopLoss(stopLossPrice);
+
+                if (order.TakeProfits > 0)
+                {
+                    var takeProfitPrice = (decimal)order.TakeProfits;
+                    var takeProfitOrder = stopLossOrder.TakeProfit(takeProfitPrice);
+                    res = await client.PostOrderAsync(takeProfitOrder);
+                }
+                else
+                {
+                    res = await client.PostOrderAsync(stopLossOrder);
+                }
+            }
+            else if (order.TakeProfits > 0)
+            {
+                var takeProfitPrice = (decimal)order.TakeProfits;
+                var takeProfitOrder = sellOrder.TakeProfit(takeProfitPrice);
+                res = await client.PostOrderAsync(takeProfitOrder);
+            }
+            else
+            {
+                res = await client.PostOrderAsync(sellOrder);
             }
 
             return res != null;

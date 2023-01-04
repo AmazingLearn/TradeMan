@@ -56,13 +56,13 @@ function AccountSettingsForm (props: IAccountFormProps) {
                     :
                     ""
                 }
-                <h2><strong>Instructions -- nejak toto lepsie sformatovat ...</strong></h2>
+                <h2><strong>Instructions</strong></h2>
                 <p>Before changing account settings, make sure to</p>
                 <p>send any message to telegram bot account</p>
                 <p> called 'Trade Man' with username '@TM536Bot'.</p>
                 <p>Otherwise you wont be able to receive </p>
                 <p>telegram notifications.</p>
-                <h2 className="pt-4" ><strong>Account settings -- toto dat asi nejak do stredu a ten instr nabok</strong></h2>
+                <h2 className="pt-4" ><strong>Account settings</strong></h2>
                 <h3><strong>Alpaca Api Key:</strong> {settings.alpacaApiKey}</h3>
                 <h3><strong>Telegram Name:</strong> {settings.telegramName}</h3>
                 <button onClick={handleModifyAccountSettings} className="z-0 relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

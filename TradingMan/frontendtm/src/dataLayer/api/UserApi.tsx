@@ -94,3 +94,26 @@ export async function setUserAccountSettings(newUserAccountSettingsDto: NewUserA
 
     return res.ok;
 }
+
+/**
+ * Calls endpoint to set a new password for a registered user.
+ * @param newUser
+ */
+export async function setNewPassword(newUser: CreateUserDto) : Promise<boolean> {
+    console.log("Setting new password.");
+
+    const res = await fetch(`${API_URL}/Users/SetNewPassword`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+    });
+
+    if (res.status != 200) {
+        alert(await res.text());
+        return false;
+    }
+
+    return res.ok;
+}

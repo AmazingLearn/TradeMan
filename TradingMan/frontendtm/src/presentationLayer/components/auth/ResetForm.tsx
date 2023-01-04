@@ -1,5 +1,11 @@
-import React from 'react';
 import {useNavigate} from "react-router-dom";
+
+import React, {useState} from 'react';
+import { LockClosedIcon } from '@heroicons/react/solid';
+import {Link} from "react-router-dom";
+import {ValidationUserDto} from "../../../dataLayer/api/dtos/UserDtos";
+import User from "../../../dataLayer/models/User";
+import {setNewPassword} from "../../../dataLayer/api/UserApi";
 
 type IResetFormProps = {}
 
@@ -10,17 +16,124 @@ type IResetFormProps = {}
  */
 function ResetForm (props: IResetFormProps){
 
-    const navigate = useNavigate();
+    const [error, setError] = useState("");
+    const [details, setDetails] = useState<ValidationUserDto>(User.toValidationUser(User.fromEmpty(), ""));
+    const [repeatPassword, setRepeatPassword] = useState("");
 
-    const handleReturn = () => {
-        navigate("/");
+    const submitHandler = async (e: React.SyntheticEvent) => {
+        if (details.email == "" || details.password == "") {
+            alert("Please fill out all fields details.");
+            return;
+        }
+
+        if (details.password !== repeatPassword)
+        {
+            alert("Passwords do not match");
+            return;
+        }
+
+        e.preventDefault();
+        try {
+            const res = await setNewPassword(details);
+            if (!res)
+            {
+                console.log("User validation didnt work.");
+                setError("Probably wrong login details provided.");
+            }
+            else
+            {
+                alert("Password reset, please go back to login page.");
+            }
+        } catch (err) {
+            setError(err.message);
+        }
     }
 
     return (
-        <div>
-            <h2>Functionality not available</h2>
-            <button onClick={handleReturn}>Click here to return</button>
-        </div>
+                 <div>
+                    <div className="max-w-md w-64 space-y-8">
+                        <div>
+                            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Reset Password</h2>
+                        </div>
+                        <form className="mt-8 space-y-6" onSubmit={submitHandler}>
+                            <input type="hidden" name="remember" defaultValue="true" />
+                            <div className="rounded-md shadow-sm -space-y-px">
+                                <div>
+                                    <label htmlFor="email-address" className="sr-only">
+                                        E-mail, please provide valid email otherwise you will have to create new account
+                                    </label>
+                                    <input
+                                        id="e-mnail"
+                                        name="email"
+                                        type="email"
+                                        autoComplete="name"
+                                        required
+                                        className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                        placeholder="E-mail"
+                                        onChange={e => setDetails({...details, email: e.target.value})}
+                                        value={details.email}
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="password" className="sr-only">
+                                        Password
+                                    </label>
+                                    <input
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        autoComplete="current-password"
+                                        required
+                                        className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                        placeholder="New password"
+                                        onChange={e => setDetails({...details, password: e.target.value})}
+                                        value={details.password}
+                                    />
+                                </div>
+                                <div>
+                                                                    <label htmlFor="password" className="sr-only">
+                                                                        Repeat password
+                                                                    </label>
+                                                                    <input
+                                                                        id="password"
+                                                                        name="password"
+                                                                        type="password"
+                                                                        autoComplete="current-password"
+                                                                        required
+                                                                        className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                                                        placeholder="Repeat password"
+                                                                        onChange={e => setRepeatPassword(e.target.value)}
+                                                                        value={repeatPassword}
+                                                                    />
+                                                                </div>
+                            </div>
+
+                                <div className="flex items-center justify-between">
+                                    <div className="text-sm">
+                                        <Link to="/" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                            Back to Login
+                                        </Link>
+                                    </div>
+                                </div>
+
+                            {(error !=="") ? (
+                                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                    <strong className="font-bold">{error}. </strong>
+                                    <span className="block sm:inline">Try again.</span>
+                                </div>
+                            ) : ""}
+
+                            <div>
+                                <button
+                                    type="submit"
+                                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    Set new password
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
     );
 }
 

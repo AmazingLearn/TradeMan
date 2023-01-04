@@ -69,7 +69,7 @@ function LoginForm (props: ILoginFormProps) {
                         </div>
                         <div>
                             <label htmlFor="password" className="sr-only">
-                                Heslo
+                                Password
                             </label>
                             <input
                                 id="password"
@@ -78,20 +78,34 @@ function LoginForm (props: ILoginFormProps) {
                                 autoComplete="current-password"
                                 required
                                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                placeholder="Heslo"
+                                placeholder="Password"
                                 onChange={e => setDetails({...details, password: e.target.value})}
                                 value={details.password}
                             />
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-between">
-                        <div className="text-sm">
-                            <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                New account
-                            </Link>
+                    <div className="flex items-stretch justify-between">
+
+                        <div className="flex items-center justify-between">
+                            <div className="text-sm">
+                                <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                    New account
+                                </Link>
+                            </div>
                         </div>
+
+                        <div className="flex items-center justify-between">
+                            <div className="text-sm">
+                                <Link to="/password-reset" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                    Reset password
+                                </Link>
+                            </div>
+                        </div>
+
                     </div>
+
+
 
                     {(error !=="") ? (
                         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">

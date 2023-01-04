@@ -7913,11 +7913,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\OooooOOoOOo\\Documents\\tm\\TradingMan\\TradingManBackend\\TradingManBackend.csproj",
+      "projectUniqueName": "C:\\Users\\OooooOOoOOo\\Documents\\tmgithub\\TradingMan\\TradingManBackend\\TradingManBackend.csproj",
       "projectName": "TradingManBackend",
-      "projectPath": "C:\\Users\\OooooOOoOOo\\Documents\\tm\\TradingMan\\TradingManBackend\\TradingManBackend.csproj",
+      "projectPath": "C:\\Users\\OooooOOoOOo\\Documents\\tmgithub\\TradingMan\\TradingManBackend\\TradingManBackend.csproj",
       "packagesPath": "C:\\Users\\OooooOOoOOo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\OooooOOoOOo\\Documents\\tm\\TradingMan\\TradingManBackend\\obj\\",
+      "outputPath": "C:\\Users\\OooooOOoOOo\\Documents\\tmgithub\\TradingMan\\TradingManBackend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\OooooOOoOOo\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -147,5 +147,31 @@ namespace TradingManBackend.Controllers
             
             return Ok();
         }
+
+        /// <summary>
+        /// Endpoint to set new password.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("SetNewPassword")]
+        public IActionResult SetNewPassword([FromBody] NewUserDto newUserDto)
+        {
+            _logger.LogInformation($"Setting new password for email: [{newUserDto.Email}]");
+
+            try
+            {
+                if(!_usersLogic.SetNewPassword(newUserDto.Email, newUserDto.Password))
+                {
+                    _logger.LogError($"Unable to find user with email: {newUserDto.Email}");
+                    return BadRequest($"Unable to find user with email: {newUserDto.Email}");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
+        }
     }
 }

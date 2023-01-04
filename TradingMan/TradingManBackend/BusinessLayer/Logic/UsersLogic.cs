@@ -100,5 +100,26 @@ namespace TradingManBackend.BusinessLayer.Logic
 
             return accountSettingList.First();
         }
+
+        /// <summary>
+        /// Sets new password for a user
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
+        public bool SetNewPassword(string email, string newPassword)
+        {
+            var user = _context.Users.First(x => x.Email == email);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            user.Password = newPassword;
+            _context.SaveChanges();
+
+            return true;
+        }
     }
 }

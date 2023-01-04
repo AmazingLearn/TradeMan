@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zjNhdDJHINcg0idAM2jnYLrxesvm31Ol/oRTW5cM5IrehWYMtf3dGS5ottr6mLH9Bc9bdHWXxFOpMAW+fy1ikA==",
+  "dgSpecHash": "OO9DjctKUgEx1CtG9/lRqfzc+1Fwf5zCOi6R85yUM0uAgt35Ddwi81uNpVuy+QjaHY3m+pH0++NZ2uLpq4BMlw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\OooooOOoOOo\\Documents\\tm\\TradingMan\\TradingManBackend\\TradingManBackend.csproj",
+  "projectFilePath": "C:\\Users\\OooooOOoOOo\\Documents\\tmgithub\\TradingMan\\TradingManBackend\\TradingManBackend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\OooooOOoOOo\\.nuget\\packages\\alpaca.markets\\5.3.2\\alpaca.markets.5.3.2.nupkg.sha512",
     "C:\\Users\\OooooOOoOOo\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
